@@ -1,0 +1,35 @@
+D3 watchout. 
+Good api design, monadic chaining.
+
+we're performing chained operations on an array of elements.
+
+Keeping playerloop separate from the terrain update loop
+
+keeping multiple kinds of terrain objects, giving each a prototypal update function
+
+keep a seperate update loop for particle effects
+
+seems like we're doing the same thing repeatedly.
+
+its easier to reason about which system is misbehaving if we extract out the setInterval step from the core execution.
+
+we will have multiple collections as game state (player, terrain, particles).
+
+particles don't change velocity after creation, they can be created as single objects that have a single transition applied to them (assuming we don't want them to disappear on contact with other elements). Similarly, place the z index either beneath everything or above everything. Or particles can be spewed and have a timeout.
+
+Don't attach particles to the terrain/player that created them. Allow the player/terrain interactions to create them.
+
+Ok, back to the basics.
+
+Naive thought experiment:
+Put all of the state as stateful objects in the game space. Do checks between all of these objects 24 times a second. Spawn/delete objects as needed. Have each object's prototype update it, and then have the game world run the checks.
+
+Next level: 
+Force the stateful objects into collections, and perform operations over that collection. Ignore needing to have the main game state care about anything. Encapsulate. Control which stateful objects interact with other objects, and how. 
+
+For example, when terrain bashes terrain, particles fly, the two terrain objects change velocities. But when the player is crushed, particles fly, and terrain continues on unaltered.
+
+Next level:
+Let the collection itself organize and test for collisions. the collection can to a map/reduce to find if collisions exist, and where. Then it can intelligently find where they exist. 
+
+Back to the game thinking, new note.
