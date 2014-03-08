@@ -38,7 +38,10 @@ var update = function(dots) {
   var y = Math.random()*height;
   dots
     .transition()
-    .attr('transform','translate(' + x + ', ' + y + ')');
+    .duration(500)
+    .transition()
+    .attr('cx', function(){return Math.random()*width;})
+    .attr('cy', function(){return Math.random()*height;});
   return dots;
 };
 
