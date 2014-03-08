@@ -21,14 +21,14 @@ var initDots = function(data){
   var dots = svg
     .selectAll('g')
     .data(data, function(d) {return d;});
-  //
+
   // ENTER: Create new elements as needed
   dots
     .enter()
     .append('circle')
     .attr('cx', function(){return Math.random()*width;})
     .attr('cy', function(){return Math.random()*height;})
-    .attr('r',  width / 100)
+    .attr('r',  10)
     .attr('fill', 'black');
   return dots;
 };
@@ -36,10 +36,10 @@ var initDots = function(data){
 var update = function(dots) {
   var x = Math.random()*width;
   var y = Math.random()*height;
+
   dots
     .transition()
     .duration(500)
-    .transition()
     .attr('cx', function(){return Math.random()*width;})
     .attr('cy', function(){return Math.random()*height;});
   return dots;
